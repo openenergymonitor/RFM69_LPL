@@ -35,6 +35,7 @@
 // available frequency bands
 #define RF69_315MHZ            31 // non trivial values to avoid misconfiguration
 #define RF69_433MHZ            43
+#define RF69_433_92MHZ         49
 #define RF69_868MHZ            86
 #define RF69_915MHZ            91
 

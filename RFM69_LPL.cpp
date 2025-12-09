@@ -58,9 +58,21 @@ bool RFM69::initialize (uint8_t freqBand, uint16_t ID, uint8_t networkID) {
     0x04, 0x40, // LSB 55555 bits/s
     0x05, 0x03, // MSB FDEV 50000
     0x06, 0x33, // LSB FDEV 50000
-    0x07, (uint8_t)(freqBand == RF69_868MHZ?0xD9:RF_FRFMSB_433_92), // MSB 433 Mhz
-    0x08, (uint8_t)(freqBand == RF69_868MHZ?0x00:RF_FRFMID_433_92), // MID 433 Mhz
-    0x09, (uint8_t)(freqBand == RF69_868MHZ?0x00:RF_FRFLSB_433_92), // LSB 433 Mhz
+    0x07, (uint8_t)(freqBand == RF69_315MHZ ? RF_FRFMSB_315 : 
+                    freqBand == RF69_433MHZ ? RF_FRFMSB_433 :
+                    freqBand == RF69_433_92MHZ ? RF_FRFMSB_433_92 :
+                    freqBand == RF69_868MHZ ? RF_FRFMSB_868 :
+                    freqBand == RF69_915MHZ ? RF_FRFMSB_915 : RF_FRFMSB_433_92),
+    0x08, (uint8_t)(freqBand == RF69_315MHZ ? RF_FRFMID_315 :
+                    freqBand == RF69_433MHZ ? RF_FRFMID_433 :
+                    freqBand == RF69_433_92MHZ ? RF_FRFMID_433_92 :
+                    freqBand == RF69_868MHZ ? RF_FRFMID_868 :
+                    freqBand == RF69_915MHZ ? RF_FRFMID_915 : RF_FRFMID_433_92),
+    0x09, (uint8_t)(freqBand == RF69_315MHZ ? RF_FRFLSB_315 :
+                    freqBand == RF69_433MHZ ? RF_FRFLSB_433 :
+                    freqBand == RF69_433_92MHZ ? RF_FRFLSB_433_92 :
+                    freqBand == RF69_868MHZ ? RF_FRFLSB_868 :
+                    freqBand == RF69_915MHZ ? RF_FRFLSB_915 : RF_FRFLSB_433_92),
     0x19, 0x42, // REG_RXBW (BitRate < 2 * RxBw)
     0x25, 0x40, // DIO0 is the only IRQ we're using
     0x26, 0x07, // DIO5 ClkOut disable for power saving
